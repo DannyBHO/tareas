@@ -1,5 +1,5 @@
 # =====================================================
-#           JUEGO POO: BATALLA DE AVENTUREROS
+#           BATALLA DE AVENTUREROS
 #                
 # =====================================================
 
@@ -73,11 +73,11 @@ class Mago(Personaje):
 
 # -----------------------------------------------------
 #               JUEGO PRINCIPAL
-#                (POO en acción)
+#                
 # -----------------------------------------------------
 
 def batalla(j1, j2):
-    print("\n⚔️  ¡COMIENZA LA BATALLA! ⚔️\n")
+    print("\n  ¡COMIENZA LA BATALLA! \n")
     print(j1.mostrar_info())
     print(j2.mostrar_info())
     print("\n--------------------------------\n")
