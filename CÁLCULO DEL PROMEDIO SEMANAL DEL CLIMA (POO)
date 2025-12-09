@@ -1,0 +1,37 @@
+# ================================================================
+#      CÁLCULO DEL PROMEDIO SEMANAL DEL CLIMA (POO)
+# ================================================================
+# Enfoque: Programación Orientada a Objetos
+# Uso de clase, encapsulamiento y métodos internos
+# ================================================================
+
+class ClimaSemanal:
+    def __init__(self):
+        # Encapsulamiento: lista interna protegida
+        self._temperaturas = []
+
+    # Método para ingresar temperaturas
+    def ingresar_temperaturas(self):
+        print("=== Ingreso de temperaturas de la semana (POO) ===")
+        for dia in range(1, 8):
+            temp = float(input(f"Ingrese la temperatura del día {dia}: "))
+            self._temperaturas.append(temp)
+
+    # Método para calcular promedio
+    def calcular_promedio(self):
+        return sum(self._temperaturas) / len(self._temperaturas)
+
+    # Método para mostrar resultado
+    def mostrar_promedio(self):
+        promedio = self.calcular_promedio()
+        print(f"\nEl promedio semanal es: {promedio:.2f} °C")
+
+
+# PROGRAMA PRINCIPAL EN POO
+def main():
+    clima = ClimaSemanal()
+    clima.ingresar_temperaturas()
+    clima.mostrar_promedio()
+
+if __name__ == "__main__":
+    main()
