@@ -1,0 +1,124 @@
+# =====================================================
+#           JUEGO POO: BATALLA DE AVENTUREROS
+#                
+# =====================================================
+
+# -----------------------------------------------------
+# 1. ABSTRACCIÓN
+# -----------------------------------------------------
+# Creamos una clase base “Personaje” que contiene solo
+# los elementos esenciales que cualquier luchador necesita:
+# nombre, vida y ataque.
+# No se incluyen detalles innecesarios del personaje.
+# -----------------------------------------------------
+
+class Personaje:
+    def __init__(self, nombre, vida, ataque):
+        # -----------------------------------------------
+        # 2. ENCAPSULAMIENTO
+        # -----------------------------------------------
+        # Los atributos se protegen con guion bajo para
+        # evitar modificaciones directas.
+        # Se crean getters/setters para controlar su acceso.
+        # -----------------------------------------------
+        self._nombre = nombre
+        self._vida = vida
+        self._ataque = ataque
+
+    # MÉTODOS GETTER Y SETTER
+    def get_nombre(self):
+        return self._nombre
+    
+    def get_vida(self):
+        return self._vida
+
+    def set_vida(self, nueva_vida):
+        if nueva_vida >= 0:
+            self._vida = nueva_vida
+
+    # MÉTODO COMÚN (funciona distinto en los hijos → polimorfismo)
+    def atacar(self):
+        return self._ataque
+
+    # ABSTRACCIÓN: información básica
+    def mostrar_info(self):
+        return f"{self._nombre} | Vida: {self._vida} | Ataque: {self._ataque}"
+
+
+# -----------------------------------------------------
+# 3. HERENCIA
+# -----------------------------------------------------
+# Las clases Guerrero y Mago heredan atributos y métodos
+# de Personaje.
+# Cada uno agrega su habilidad especial.
+# -----------------------------------------------------
+
+class Guerrero(Personaje):
+    # POLIMORFISMO: el ataque del guerrero es doble
+    def atacar(self):
+        return self._ataque * 2
+    
+    def habilidad_especial(self):
+        return "Golpe Fuerte"
+
+
+class Mago(Personaje):
+    # POLIMORFISMO: el ataque del mago incluye magia adicional
+    def atacar(self):
+        return self._ataque + 5
+    
+    def habilidad_especial(self):
+        return "Bola de Fuego"
+
+
+# -----------------------------------------------------
+#               JUEGO PRINCIPAL
+#                (POO en acción)
+# -----------------------------------------------------
+
+def batalla(j1, j2):
+    print("\n⚔️  ¡COMIENZA LA BATALLA! ⚔️\n")
+    print(j1.mostrar_info())
+    print(j2.mostrar_info())
+    print("\n--------------------------------\n")
+
+    turno = 1
+
+    while j1.get_vida() > 0 and j2.get_vida() > 0:
+        print(f" Turno {turno}")
+
+        # Ataque del jugador 1
+        daño = j1.atacar()
+        j2.set_vida(j2.get_vida() - daño)
+        print(f"{j1.get_nombre()} usa {j1.habilidad_especial()} → daño: {daño}")
+
+        if j2.get_vida() <= 0:
+            print(f"\n ¡{j1.get_nombre()} gana la batalla!")
+            break
+
+        # Ataque del jugador 2
+        daño = j2.atacar()
+        j1.set_vida(j1.get_vida() - daño)
+        print(f"{j2.get_nombre()} usa {j2.habilidad_especial()} → daño: {daño}")
+
+        if j1.get_vida() <= 0:
+            print(f"\n ¡{j2.get_nombre()} gana la batalla!")
+            break
+
+        print("\nEstado actual:")
+        print(j1.mostrar_info())
+        print(j2.mostrar_info())
+        print("--------------------------------\n")
+
+        turno += 1
+
+
+# -----------------------------------------------------
+# CREACIÓN DE OBJETOS (POO)
+# -----------------------------------------------------
+
+jugador1 = Guerrero("Ares", 50, 8)
+jugador2 = Mago("Merlín", 45, 6)
+
+# Ejecutar batalla
+batalla(jugador1, jugador2)
